@@ -1,6 +1,8 @@
 package com.easyfitness.views;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -17,7 +19,6 @@ import androidx.appcompat.widget.AppCompatSpinner;
 import com.easyfitness.R;
 import com.easyfitness.utils.DateConverter;
 import com.easyfitness.utils.Keyboard;
-import com.ikovac.timepickerwithseconds.MyTimePickerDialog;
 
 import java.util.Calendar;
 
@@ -55,6 +56,7 @@ public class SingleValueInputView extends LinearLayout {
         init(context, attrs);
     }
 
+    @SuppressLint("WrongViewCast")
     protected void init(Context context, AttributeSet attrs) {
 
         rootView = inflate(context, R.layout.singlevalueinput_view, this);
@@ -99,10 +101,7 @@ public class SingleValueInputView extends LinearLayout {
 
     public void showUnit(boolean showUnit) {
         mShowUnit = showUnit;
-        if (!mShowUnit)
-            unitSpinner.setVisibility(View.GONE);
-        else
-            unitSpinner.setVisibility(View.VISIBLE);
+        unitSpinner.setVisibility(mShowUnit ? View.VISIBLE : View.GONE);
         invalidate();
         requestLayout();
     }
@@ -124,10 +123,7 @@ public class SingleValueInputView extends LinearLayout {
 
     public void setShowComment(boolean showComment) {
         mShowComment = showComment;
-        if (!mShowComment)
-            commentLayout.setVisibility(View.GONE);
-        else
-            commentLayout.setVisibility(View.VISIBLE);
+        commentLayout.setVisibility(mShowComment ? View.VISIBLE : View.GONE);
         invalidate();
         requestLayout();
     }
@@ -139,11 +135,7 @@ public class SingleValueInputView extends LinearLayout {
     public void setComment(String comment) {
         mComment = comment;
         commentTextView.setText(mComment);
-        if (comment == null || comment.isEmpty()) {
-            commentLayout.setVisibility(View.GONE);
-        } else {
-            commentLayout.setVisibility(View.VISIBLE);
-        }
+        commentLayout.setVisibility(comment == null || comment.isEmpty() ? View.GONE : View.VISIBLE);
         invalidate();
         requestLayout();
     }
@@ -183,10 +175,6 @@ public class SingleValueInputView extends LinearLayout {
         }
     }
 
-    public void setSelectedUnit(int selectedUnit) {
-        unitSpinner.setSelection(selectedUnit);
-    }
-
     public boolean isEmpty() {
         return valueEditText.getText().toString().isEmpty();
     }
@@ -202,42 +190,22 @@ public class SingleValueInputView extends LinearLayout {
             valueEditText.setFocusable(false);
             valueEditText.setOnClickListener(v -> {
                 if (mIsTimePickerShown) return;
+
+                // Parsing the time text (format: HH:mm:ss)
                 String tx = valueEditText.getText().toString();
-
-                int hour;
+                int hour = 0, minute = 0, seconds = 0;
                 try {
-                    hour = Integer.parseInt(tx.substring(0, 2));
+                    String[] timeParts = tx.split(":");
+                    hour = Integer.parseInt(timeParts[0]);
+                    minute = Integer.parseInt(timeParts[1]);
+                    seconds = Integer.parseInt(timeParts.length > 2 ? timeParts[2] : "0");
                 } catch (Exception e) {
-                    hour = 0;
-                }
-                int minute;
-                try {
-                    minute = Integer.parseInt(tx.substring(3, 5));
-                } catch (Exception e) {
-                    minute = 0;
-                }
-                int seconds;
-                try {
-                    seconds = Integer.parseInt(tx.substring(6));
-                } catch (Exception e) {
-                    seconds = 0;
+                    // Ignore parsing issues and use default (0) for time components
                 }
 
-                MyTimePickerDialog mTimePicker = new MyTimePickerDialog(this.getContext(), (timePicker, selectedHour, selectedMinute, selectedSeconds) -> {
-                    String strMinute = "00";
-                    String strHour = "00";
-                    String strSecond = "00";
-
-                    if (selectedHour < 10) strHour = "0" + selectedHour;
-                    else strHour = Integer.toString(selectedHour);
-                    if (selectedMinute < 10) strMinute = "0" + selectedMinute;
-                    else strMinute = Integer.toString(selectedMinute);
-                    if (selectedSeconds < 10) strSecond = "0" + selectedSeconds;
-                    else strSecond = Integer.toString(selectedSeconds);
-
-                    valueEditText.setText(strHour + ":" + strMinute + ":" + strSecond);
-                }, hour, minute, seconds, true);//Yes 24 hour time
-
+                TimePickerDialog mTimePicker = new TimePickerDialog(this.getContext(), (timePicker, selectedHour, selectedMinute) -> {
+                    valueEditText.setText(String.format("%02d:%02d:00", selectedHour, selectedMinute));
+                }, hour, minute, true);
 
                 mTimePicker.setOnDismissListener(dialog -> mIsTimePickerShown = false);
                 mTimePicker.setTitle("Select Time");
@@ -248,7 +216,6 @@ public class SingleValueInputView extends LinearLayout {
             valueEditText.setFocusable(false);
             valueEditText.setOnClickListener(v -> {
                 if (mIsDatePickerShown) return;
-                String tx = valueEditText.getText().toString();
 
                 Calendar cal = Calendar.getInstance();
                 DatePickerDialog mDatePicker = new DatePickerDialog(this.getContext(),
@@ -266,7 +233,7 @@ public class SingleValueInputView extends LinearLayout {
                 mDatePicker.show();
             });
         } else {
-            valueEditText.setFocusable(true);
+            valueEditText.setFocusableInTouchMode(true);
             valueEditText.setOnClickListener(null);
         }
     }

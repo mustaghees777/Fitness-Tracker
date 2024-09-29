@@ -30,8 +30,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+<androidx.cardview.widget.CardView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="150dp"
+    android:layout_centerInParent="true"
+    app:cardBackgroundColor="@color/material_blue_grey_80">
 
-                <com.mikhaellopez.circularimageview.CircularImageView
+                <ImageView
                     android:id="@+id/photo"
                     android:layout_width="300dp"
                     android:layout_height="300dp"
@@ -49,13 +55,8 @@
                     android:scaleType="centerInside"
                     android:src="@drawable/profile"
                     android:textAlignment="center"
-                    app:civ_background_color="@color/gray"
-                    app:civ_border_color="@color/gray"
-                    app:civ_border_width="1dp"
-                    app:civ_shadow="true"
-                    app:civ_shadow_color="@color/gray"
-                    app:civ_shadow_radius="10" />
-
+             />
+</androidx.cardview.widget.CardView>
             </RelativeLayout>
 
             <LinearLayout

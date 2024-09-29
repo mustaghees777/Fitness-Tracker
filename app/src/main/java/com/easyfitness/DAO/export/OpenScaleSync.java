@@ -19,7 +19,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.csvreader.CsvReader;
 import com.csvreader.CsvWriter;
-import com.easyfitness.BuildConfig;
+
 import com.easyfitness.DAO.DAOMachine;
 import com.easyfitness.DAO.DAOProfile;
 import com.easyfitness.DAO.DAOProfileWeight;

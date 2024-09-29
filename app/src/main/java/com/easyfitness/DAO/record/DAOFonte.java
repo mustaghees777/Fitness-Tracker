@@ -327,7 +327,7 @@ public class DAOFonte extends DAORecord {
     public void populate() {
         // DBORecord(long id, Date pDate, String pMachine, int pSerie, int
         // pRepetition, int pPoids)
-        Date date = DateConverter.timeToDate(12, 34, 56);
+        Date date = DateConverter.timeToDate(12, 34);
         int poids = 10;
 
         for (int i = 1; i <= 5; i++) {
@@ -336,7 +336,7 @@ public class DAOFonte extends DAORecord {
             addStrengthRecordToFreeWorkout(date, machine, i * 2, 10 + i, poids * i, WeightUnit.KG, "", mProfile.getId());
         }
 
-        date = DateConverter.timeToDate(12, 34, 56);
+        date = DateConverter.timeToDate(12, 34);
         poids = 12;
 
         for (int i = 1; i <= 5; i++) {

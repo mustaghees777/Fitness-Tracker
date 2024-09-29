@@ -1,11 +1,11 @@
 package com.easyfitness;
 
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
 
-import com.ikovac.timepickerwithseconds.MyTimePickerDialog;
 
 //@SuppressLint("ValidFragment")
 public class TimePickerDialogFragment extends DialogFragment {
@@ -13,11 +13,11 @@ public class TimePickerDialogFragment extends DialogFragment {
     private final int Hours = 0;
     private final int Minutes = 0;
     private final int Seconds = 0;
-    private MyTimePickerDialog.OnTimeSetListener onTimeSetListener;
+    private TimePickerDialog.OnTimeSetListener onTimeSetListener;
 
-    static public TimePickerDialogFragment newInstance(MyTimePickerDialog.OnTimeSetListener onTimeSetListener, int hour, int min, int sec) {
+    static public TimePickerDialogFragment newInstance(int hour, int min, int sec) {
         TimePickerDialogFragment pickerFragment = new TimePickerDialogFragment();
-        pickerFragment.setOnTimeSetListener(onTimeSetListener);
+        pickerFragment.setOnTimeSetListener(pickerFragment.onTimeSetListener);
 
         //Pass the date in a bundle.
         Bundle bundle = new Bundle();
@@ -35,10 +35,10 @@ public class TimePickerDialogFragment extends DialogFragment {
         int sec = bundle.getInt("SECOND");
 
         // Create a new instance of TimePickerDialog and return it
-        return new MyTimePickerDialog(getActivity(), onTimeSetListener, hour, min, sec, true);
-    }
+        return new TimePickerDialog(requireContext(), onTimeSetListener, hour, min, true);
+     }
 
-    private void setOnTimeSetListener(MyTimePickerDialog.OnTimeSetListener listener) {
+    private void setOnTimeSetListener(TimePickerDialog.OnTimeSetListener listener) {
         this.onTimeSetListener = listener;
     }
 }

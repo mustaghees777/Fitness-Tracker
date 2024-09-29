@@ -33,7 +33,6 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize"
-            android:label="@string/app_name"
             android:windowSoftInputMode="stateUnchanged"
             android:exported="true">
             <intent-filter>

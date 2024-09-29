@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,7 +34,7 @@ import com.easyfitness.utils.ImageUtil;
 import com.easyfitness.utils.Value;
 import com.easyfitness.views.EditableInputView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.mikhaellopez.circularimageview.CircularImageView;
+
 import com.onurkaganaldemir.ktoastlib.KToast;
 
 import java.io.File;
@@ -47,7 +48,7 @@ public class ProfileFragment extends Fragment {
     EditableInputView birthdayEdit = null;
     EditableInputView nameEdit = null;
     EditableInputView genderEdit = null;
-    CircularImageView roundProfile = null;
+    ImageView roundProfile = null;
     FloatingActionButton photoButton = null;
     String mCurrentPhotoPath = null;
 

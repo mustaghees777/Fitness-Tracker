@@ -27,6 +27,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+
 import com.easyfitness.DAO.DAOProfile;
 import com.easyfitness.DAO.DAOProfileWeight;
 import com.easyfitness.DAO.Profile;

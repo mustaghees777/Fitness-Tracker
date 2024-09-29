@@ -2,6 +2,7 @@ package com.easyfitness.fonte;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -67,8 +68,7 @@ import com.easyfitness.utils.ImageUtil;
 import com.easyfitness.utils.Keyboard;
 import com.easyfitness.utils.UnitConverter;
 import com.easyfitness.views.WorkoutValuesInputView;
-import com.ikovac.timepickerwithseconds.MyTimePickerDialog;
-import com.mikhaellopez.circularimageview.CircularImageView;
+
 import com.onurkaganaldemir.ktoastlib.KToast;
 
 import java.text.DecimalFormat;
@@ -88,7 +88,7 @@ public class FontesFragment extends Fragment {
     private MainActivity mActivity = null;
     private AutoCompleteTextView machineEdit = null;
     private MachineArrayFullAdapter machineEditAdapter = null;
-    private CircularImageView machineImage = null;
+    private ImageView machineImage = null;
     private ImageButton machineListButton = null;
     private boolean[] checkedFilterItems = {true, true, true};
     private ArrayList<ExerciseType> selectedTypes = new ArrayList<>();
@@ -102,9 +102,9 @@ public class FontesFragment extends Fragment {
         Keyboard.hide(getContext(), dateEdit);
     };
     private TextView timeEdit = null;
-    private final MyTimePickerDialog.OnTimeSetListener timeSet = (view, hourOfDay, minute, second) -> {
+    private final TimePickerDialog.OnTimeSetListener timeSet = (view, hourOfDay, minute) -> {
         // Do something with the time chosen by the user
-        Date date = DateConverter.timeToDate(hourOfDay, minute, second);
+        Date date = DateConverter.timeToDate(hourOfDay, minute);
         timeEdit.setText(DateConverter.dateToLocalTimeStr(date, getContext()));
         Keyboard.hide(getContext(), timeEdit);
     };
@@ -759,7 +759,7 @@ public class FontesFragment extends Fragment {
 
         if (timeTextView.getId() == R.id.editTime) {
             if (mTimeFrag == null) {
-                mTimeFrag = TimePickerDialogFragment.newInstance(timeSet, hour, min, sec);
+                mTimeFrag = TimePickerDialogFragment.newInstance(hour, min, sec);
                 mTimeFrag.show(getActivity().getSupportFragmentManager().beginTransaction(), "dialog_time");
             } else {
                 if (!mTimeFrag.isVisible()) {

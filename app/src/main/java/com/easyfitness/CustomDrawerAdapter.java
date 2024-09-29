@@ -18,7 +18,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.easyfitness.utils.ImageUtil;
-import com.mikhaellopez.circularimageview.CircularImageView;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -138,7 +138,7 @@ public class CustomDrawerAdapter extends ArrayAdapter<DrawerItem> {
     private static class DrawerItemHolder {
         TextView ItemName, title;
         ImageView icon;
-        CircularImageView roundProfile;
+        ImageView roundProfile;
         RelativeLayout headerLayout, itemLayout;
         LinearLayout spinnerLayout;
         Spinner spinner;

@@ -19,6 +19,7 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
@@ -66,7 +67,6 @@ import com.easyfitness.utils.FileNameUtil;
 import com.easyfitness.utils.ImageUtil;
 import com.easyfitness.utils.MusicController;
 import com.easyfitness.utils.UnitConverter;
-import com.mikhaellopez.circularimageview.CircularImageView;
 import com.onurkaganaldemir.ktoastlib.KToast;
 
 import java.io.File;
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout = null;
     private ListView mDrawerList = null;
     private ActionBarDrawerToggle mDrawerToggle = null;
-    private CircularImageView roundProfile = null;
+    private ImageView roundProfile = null;
     private String mCurrentMachine = "";
     private boolean mIntro014Launched = false;
     private boolean mMigrationBD15done = false;
